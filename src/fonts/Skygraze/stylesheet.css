@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Skygraze';
+    src: url('Skygraze.eot');
+    src: local('Skygraze'),
+        url('Skygraze.eot?#iefix') format('embedded-opentype'),
+        url('Skygraze.woff2') format('woff2'),
+        url('Skygraze.woff') format('woff'),
+        url('Skygraze.ttf') format('truetype'),
+        url('Skygraze.svg#Skygraze') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
