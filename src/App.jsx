@@ -1,18 +1,19 @@
 import React from 'react';
+import { FaBars } from 'react-icons/fa';
 import logo from './logo.svg';
 import './styles/global.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <img src={logo} alt="Application logo" width="100px" />
-        <h1>DEVODORO</h1>
-        <h2>Menu</h2>
+        <h1 className="app-title">DEVODORO</h1>
+        <div className="menu">
+          <FaBars />
+        </div>
       </header>
-      <p>
-        This is a Text!
-      </p>
+      <p>This is a Text!</p>
     </div>
   );
 }
