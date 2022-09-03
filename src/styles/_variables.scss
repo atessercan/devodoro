@@ -1,14 +1,12 @@
 @font-face {
   font-family: Teko;
   src: url("../fonts/Teko/Teko-Regular.ttf") format("truetype");
-  font-display: swap;
 }
 
 @font-face {
   font-family: TekoBold;
   src: url("../fonts/Teko/Teko-Bold.ttf") format("truetype");
   font-weight: bold;
-  font-display: swap;
 }
 
 @font-face {
@@ -22,9 +20,9 @@
     url("../fonts/Skygraze/Skygraze.svg#Skygraze") format("svg");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 $teko: teko, monospace;
 $teko-bold: tekobold, monospace;
 $skygraze: skygraze, monospace;
+$background-color: #282c34;

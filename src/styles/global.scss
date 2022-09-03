@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #282c34;
+    background-color: $background-color;
 
     .app-header {
       display: flex;
