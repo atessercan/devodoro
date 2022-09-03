@@ -1,1 +1,12 @@
 @import '../../../styles/variables';
+
+.pomodoro-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 3rem;
+  color: #fff;
+  letter-spacing: .2rem;
+}

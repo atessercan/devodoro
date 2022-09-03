@@ -1,1 +1,33 @@
 @import '../../../styles/variables';
+
+.menu {
+  position: absolute;
+  right: 1rem;
+  top: 5rem;
+  width: 25%;
+  height: 80%;
+  border: 2px solid rgb(111, 112, 119);
+  border-radius: 10px;
+  display: flex;
+  flex-flow: nowrap column;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.5rem;
+  animation-name: menu;
+  animation-duration: .2s;
+
+  @keyframes menu {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  &>* {
+    margin: 1rem;
+    cursor: pointer;
+  }
+}

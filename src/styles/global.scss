@@ -21,31 +21,19 @@ body {
     justify-content: flex-start;
     align-items: center;
     background-color: $background-color;
+    position: relative;
+  }
 
-    .app-header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      font-size: calc(10px + 1vmin);
-      color: white;
-      height: 5rem;
-      width: 100%;
+  .ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 120ms ease-in-out;
+  }
 
-      &>* {
-        cursor: pointer;
-      }
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
 
-      .app-title {
-        font-family: $skygraze;
-      }
-
-      .menu {
-        width: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
   }
 }

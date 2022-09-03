@@ -1,1 +1,25 @@
 @import '../../../styles/variables';
+
+.app-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: calc(10px + 1vmin);
+  color: white;
+  height: 5rem;
+  width: 100%;
+
+  &>* {
+    cursor: pointer;
+  }
+
+  .app-title {
+    font-family: $skygraze;
+  }
+
+  .menu-button {
+    width: 100px;
+  }
+}
