@@ -8,16 +8,19 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-modal": "^3.15.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "react-transition-group": "^4.4.5",
     "sass": "^1.54.8",
-    "web-vitals": "^2.1.4"
+    "stylelint-config-css-modules": "^4.1.0",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,7 +29,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "stylelint": "npx stylelint **/*.{css, scss}"
   },
   "browserslist": {
     "production": [
@@ -46,6 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.1",
@@ -60,11 +65,10 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "npm test -- --watchAll=false --bail"
+      "eslint --fix"
     ],
     "**/*.{css,scss}": [
-      "npx stylelint ***/*.{css,scss}"
+      "npx stylelint src/**/*.{css,scss}"
     ]
   }
 }
