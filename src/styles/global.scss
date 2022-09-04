@@ -13,15 +13,32 @@ body {
   background-color: black;
 
   .app {
+    position: inherit;
     height: 100vh;
     max-width: 1200px;
+    width: 100wv;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     background-color: $background-color;
-    position: relative;
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    .visible {
+      visibility: show;
+    }
+
+    .animate__animated {
+      color: white;
+      font-family: $skygraze;
+      font-size: 4rem;
+      margin-top: -60%;
+    }
+
   }
 
   .ReactModal__Overlay {

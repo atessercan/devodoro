@@ -9,7 +9,7 @@ function Pomodoro() {
     <div className={styles['pomodoro-section']}>
       <PomoNav />
       <Timer />
-      <hr style={{ width: '100%' }} />
+      <hr style={{ width: '40%' }} />
       <ButtonGroup />
     </div>
   );

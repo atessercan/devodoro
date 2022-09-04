@@ -13,7 +13,6 @@ const modalStyles = { ...customStyles.customStyles };
 ReactModal.setAppElement('#root');
 
 function PomoNav() {
-  // let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   function openModal(event) {

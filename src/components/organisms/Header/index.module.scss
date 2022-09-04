@@ -1,7 +1,8 @@
 @import '../../../styles/variables';
 
 .app-header {
-  position: relative;
+  max-width: 1200px;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -9,7 +10,6 @@
   font-size: calc(10px + 1vmin);
   color: white;
   height: 5rem;
-  width: 100%;
 
   &>* {
     cursor: pointer;
