@@ -2,148 +2,20 @@
 
 .timer-group {
   height: 400px;
+  width: 400px;
   margin: 0 auto;
   position: relative;
-  width: 400px;
   display: flex;
+  flex-flow: nowrap column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 
-  .timer {
-    border-radius: 50%;
-    height: 100px;
-    overflow: hidden;
-    position: absolute;
-    width: 100px;
-
-    &::after {
-      background: $background-color;
-      border-radius: 50%;
-      content: "";
-      display: block;
-      height: 80px;
-      left: 10px;
-      position: absolute;
-      width: 80px;
-      top: 10px;
-    }
-
-    .hand {
-      float: left;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-      width: 50%;
-
-      span {
-        border: 50px solid rgba(0 255 255 / 40%);
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-        border-radius: 50%;
-        display: block;
-        height: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform: rotate(225deg);
-        width: 0;
-        animation-duration: 4s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-      }
-
-      &:first-child {
-        transform: rotate(180deg);
-      }
-
-      &:first-child span {
-        animation-name: spin1;
-      }
-
-      &:last-child span {
-        animation-name: spin2;
-      }
-
-      @keyframes spin1 {
-        0% {
-          transform: rotate(225deg);
-        }
-
-        50% {
-          transform: rotate(225deg);
-        }
-
-        100% {
-          transform: rotate(405deg);
-        }
-      }
-
-      @keyframes spin2 {
-        0% {
-          transform: rotate(225deg);
-        }
-
-        50% {
-          transform: rotate(405deg);
-        }
-
-        100% {
-          transform: rotate(405deg);
-        }
-      }
-
-    }
-
-  }
-
-  .timer.minute {
-    background: rgba(0 0 0 / 30%);
-    height: 400px;
-    left: 0;
-    width: 400px;
-    top: 0;
-
-    .hand span {
-      // animation-duration: 3600s;
-      border-top-color: rgba(255 0 255 / 40%);
-      border-right-color: rgba(255 0 255 / 40%);
-      border-width: 200px;
-    }
-
-    &::after {
-      height: 360px;
-      left: 20px;
-      width: 360px;
-      top: 20px;
-    }
-  }
-
-  .face {
-    background: rgba(0 0 0 / 10%);
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    text-align: center;
-    color: #fff;
+  .button-group {
     display: flex;
-    flex-direction: column;
+    flex-flow: nowrap row;
     justify-content: center;
     align-items: center;
-
-    h2 {
-      font-size: 1.5rem;
-      letter-spacing: .1rem;
-    }
-
-    .clock {
-      order: -1;
-      display: inline-flex;
-      border-radius: 20px;
-      font-size: 8rem;
-      width: 260px;
-      padding-left: .9rem;
-      letter-spacing: .5rem;
-    }
+    gap: 2rem;
   }
 }
