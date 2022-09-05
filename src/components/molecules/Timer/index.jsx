@@ -56,7 +56,7 @@ function Timer() {
         return;
       }
       tick();
-    }, 10);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [settings]);
