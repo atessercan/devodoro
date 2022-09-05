@@ -1,0 +1,36 @@
+@import '../../../styles/variables';
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+
+  .settings {
+    display: flex;
+    flex-flow: nowrap row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+    width: 100%;
+    padding: 2rem;
+
+    .options {
+      display: flex;
+      flex-flow: nowrap column;
+      justify-content: center;
+      align-items: flex-start;
+
+      &>* {
+        display: flex;
+        flex-flow: nowrap column;
+        line-height: 3rem;
+      }
+    }
+
+  }
+
+  .close-button {
+    float: right;
+    padding: 0;
+    margin: 0;
+  }
+}

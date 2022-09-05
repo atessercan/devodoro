@@ -5,7 +5,7 @@ function Button({ name, onClick }) {
   return (
     <div>
       <button className={styles.button} type="submit" onClick={onClick}>
-        {name}
+        <span>{name}</span>
       </button>
     </div>
   );

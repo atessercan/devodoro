@@ -1,6 +1,6 @@
 @import '../../../styles/variables';
 
-.button {
+.select {
   box-shadow: inset 0 1px 0 0 #282c34;
   background: linear-gradient(to bottom, #282c34 5%, #282c34d7 100%);
   background-color: #282c34;
@@ -12,8 +12,8 @@
   font-family: $skygraze;
   font-size: 1rem;
   font-weight: bold;
-  letter-spacing: .5rem;
-  padding: .35rem 1.5rem;
+  letter-spacing: .2rem;
+  padding: .35rem .5rem;
   text-decoration: none;
   text-shadow: 0 .1rem 0 #282c3462;
 
@@ -25,9 +25,17 @@
   &:active {
     position: relative;
     top: 1px;
+
   }
 
   &:focus {
     outline: none;
   }
+
+}
+
+.option-title {
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  line-height: 3rem;
 }
