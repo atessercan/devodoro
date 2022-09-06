@@ -7,6 +7,7 @@ import ReactModal from 'react-modal';
 import styles from './index.module.scss';
 import customStyles from '../../../constants/constant';
 import Settings from '../../molecules/Settings';
+import Statistics from '../../molecules/Statistics';
 
 const modalStyles = { ...customStyles.customStyles };
 
@@ -42,7 +43,12 @@ function PomoNav() {
         style={modalStyles}
         contentLabel="modal"
       >
-        <Settings onClick={closeModal} modalTitle={modalTitle} />
+        {modalTitle === 'Statistics' && (
+          <Statistics onClick={closeModal} modalTitle={modalTitle} />
+        )}
+        {modalTitle === 'Settings' && (
+          <Settings onClick={closeModal} modalTitle={modalTitle} />
+        )}
       </ReactModal>
       <span className={styles.item} aria-label="Settings" onClick={openModal}>
         <AiOutlineSetting aria-label="Settings" />
