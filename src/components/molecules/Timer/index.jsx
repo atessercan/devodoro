@@ -1,11 +1,24 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import styles from './index.module.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from '../../atoms/Button';
 import SettingsContext from '../../../context/settings-context';
+import useLocalStorage from '../../../hooks/useLocalStorage';
 
 function Timer() {
+  const date = new Date();
+  const dayOfWeek = date.getDay();
+  const dayOfMonth = date.getDate();
+  const month = date.getMonth();
+  const dateObj = { dayOfWeek, dayOfMonth };
+  const [, setStatsLS] = useLocalStorage(dateObj, {});
   const settings = useContext(SettingsContext);
   const [isPaused, setIsPaused] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -14,16 +27,13 @@ function Timer() {
   const secondsRef = useRef(seconds);
   const isPausedRef = useRef(isPaused);
   const sessionModeRef = useRef(sessionMode);
-  const start = () => {
-    setSeconds(settings.sessionDuration * 60);
-  };
 
   const tick = () => {
     secondsRef.current -= 1;
     setSeconds(secondsRef.current);
   };
 
-  const changeMode = () => {
+  const changeMode = useCallback(() => {
     const next = sessionModeRef.current === 'work' ? 'break' : 'work';
     const nextSeconds =
       next === 'work'
@@ -34,32 +44,59 @@ function Timer() {
     sessionModeRef.current = next;
     setSeconds(nextSeconds);
     secondsRef.current = nextSeconds;
-  };
+  }, [settings.breakDuration, settings.sessionDuration]);
 
   useEffect(() => {
     setSeconds(0);
     secondsRef.current = 0;
     setSessionMode('break');
     sessionModeRef.current = 'break';
-    console.log('settings changed, and useEffect run');
+    const start = () => {
+      setSeconds(settings.sessionDuration * 60);
+    };
     start();
     const interval = setInterval(() => {
       if (isPausedRef.current) {
         return;
       }
       if (secondsRef.current === 0) {
-        console.log('currentt : ', secondsRef.current);
         changeMode();
-
         setIsPaused(true);
         isPausedRef.current = true;
         return;
+      }
+      if (secondsRef.current === 1) {
+        if (sessionModeRef.current === 'work') {
+          const syncLS = async () => {
+            let prevStat = 0;
+            const item = await localStorage.getItem(dayOfWeek);
+            if (item) {
+              const stat = await JSON.parse(item);
+              if (stat.monthDay !== dayOfMonth) {
+                await localStorage.removeItem(dayOfWeek);
+                prevStat = 0;
+              } else {
+                prevStat = await stat.time;
+              }
+            }
+            const newTime = prevStat + settings.sessionDuration * 60;
+            const currentStat = {
+              weekDay: dayOfWeek,
+              monthDay: dayOfMonth,
+              month,
+              time: newTime,
+            };
+            await setStatsLS(currentStat);
+          };
+          syncLS();
+        }
       }
       tick();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [settings]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings, dayOfMonth, dayOfWeek, changeMode]);
 
   const totalSeconds =
     sessionMode === 'work'
@@ -74,7 +111,6 @@ function Timer() {
 
   return (
     <div className={styles['timer-group']}>
-      {console.log(seconds)}
       <CircularProgressbar
         counterClockwise
         value={percentage}
@@ -112,15 +148,3 @@ function Timer() {
 }
 
 export default Timer;
-// import { CircularProgressbarStyles } from './types';
-// export default function buildStyles({ rotation, strokeLinecap, textColor, textSize, pathColor, pathTransition, pathTransitionDuration, trailColor, backgroundColor, }: {
-//     rotation?: number;
-//     strokeLinecap?: any;
-//     textColor?: string;
-//     textSize?: string | number;
-//     pathColor?: string;
-//     pathTransition?: string;
-//     pathTransitionDuration?: number;
-//     trailColor?: string;
-//     backgroundColor?: string;
-// }): CircularProgressbarStyles;

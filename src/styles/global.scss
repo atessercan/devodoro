@@ -53,4 +53,17 @@ body {
   .ReactModal__Overlay--before-close {
     opacity: 0;
   }
+
+  @media screen and (max-width: 1200px) {
+    .recharts-cartesian-axis-ticks {
+      font-size: 12px;
+    }
+
+  }
+
+  @media screen and (max-width: 620px) {
+    .recharts-cartesian-axis-ticks {
+      font-size: 10.5px;
+    }
+  }
 }
