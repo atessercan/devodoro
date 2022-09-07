@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { AiOutlineLineChart, AiOutlineSetting } from 'react-icons/ai';
 import ReactModal from 'react-modal';
 import styles from './index.module.scss';
-import customStyles from '../../../constants/constant';
 import Settings from '../../molecules/Settings';
 import Statistics from '../../molecules/Statistics';
+import customStyles from '../../../constants/constant';
 
 const modalStyles = { ...customStyles.customStyles };
 
@@ -35,6 +35,10 @@ function PomoNav() {
         <AiOutlineLineChart aria-label="Statistics" />
         <h3 aria-label="Statistics">Statistics</h3>
       </span>
+      <span className={styles.item} aria-label="Settings" onClick={openModal}>
+        <AiOutlineSetting aria-label="Settings" />
+        <h3 aria-label="Settings">Settings</h3>
+      </span>
       <ReactModal
         closeTimeoutMS={120}
         isOpen={modalIsOpen}
@@ -50,10 +54,6 @@ function PomoNav() {
           <Settings onClick={closeModal} modalTitle={modalTitle} />
         )}
       </ReactModal>
-      <span className={styles.item} aria-label="Settings" onClick={openModal}>
-        <AiOutlineSetting aria-label="Settings" />
-        <h3 aria-label="Settings">Settings</h3>
-      </span>
     </div>
   );
 }

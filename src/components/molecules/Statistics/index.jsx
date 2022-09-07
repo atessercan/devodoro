@@ -1,5 +1,12 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
 import Title from '../../atoms/Text/Title';
 import styles from './index.module.scss';
 
@@ -95,6 +102,7 @@ function Statistics() {
               fill: '#8884d8',
             }}
           />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <Bar dataKey="time" fill="#8884d8" barSize={30} />
         </BarChart>
       </ResponsiveContainer>

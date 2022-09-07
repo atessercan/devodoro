@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
+import React, { useContext } from 'react';
+import AuthContext from '../../../context/auth-context';
 import logo from '../../../logo.svg';
 import { SiteTitle } from '../../atoms/Text';
 import Menu from '../../molecules/Nav';
 import styles from './index.module.scss';
 
 function Header() {
-  const [menuVisibility, setMenuVisibility] = useState(false);
-
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  console.log(setCurrentUser);
   return (
     <>
+      {console.log(currentUser)}
       <header className={styles['app-header']}>
-        <img src={logo} alt="Application logo" width="100px" />
-        <SiteTitle />
-        <FaBars
-          className={styles['menu-button']}
-          onClick={() => setMenuVisibility((prevState) => !prevState)}
+        <img
+          src={logo}
+          className={styles['application-logo']}
+          alt="app logo"
+          width="100px"
         />
+        <SiteTitle />
+        <Menu />
       </header>
-      {menuVisibility && <Menu />}
     </>
   );
 }

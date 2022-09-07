@@ -1,16 +1,11 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import styles from './index.module.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from '../../atoms/Button';
 import SettingsContext from '../../../context/settings-context';
 import useLocalStorage from '../../../hooks/useLocalStorage';
+import playSound from '../../../helpers/playSound';
 
 function Timer() {
   const date = new Date();
@@ -32,8 +27,7 @@ function Timer() {
     secondsRef.current -= 1;
     setSeconds(secondsRef.current);
   };
-
-  const changeMode = useCallback(() => {
+  const changeMode = () => {
     const next = sessionModeRef.current === 'work' ? 'break' : 'work';
     const nextSeconds =
       next === 'work'
@@ -44,7 +38,7 @@ function Timer() {
     sessionModeRef.current = next;
     setSeconds(nextSeconds);
     secondsRef.current = nextSeconds;
-  }, [settings.breakDuration, settings.sessionDuration]);
+  };
 
   useEffect(() => {
     setSeconds(0);
@@ -66,6 +60,7 @@ function Timer() {
         return;
       }
       if (secondsRef.current === 1) {
+        playSound();
         if (sessionModeRef.current === 'work') {
           const syncLS = async () => {
             let prevStat = 0;
@@ -92,11 +87,11 @@ function Timer() {
         }
       }
       tick();
-    }, 1000);
+    }, 10);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings, dayOfMonth, dayOfWeek, changeMode]);
+  }, [settings, dayOfMonth, dayOfWeek]);
 
   const totalSeconds =
     sessionMode === 'work'
