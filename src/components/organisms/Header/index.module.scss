@@ -10,9 +10,14 @@
   font-size: calc(10px + 1vmin);
   color: white;
   height: 5rem;
+  padding: 0 2rem;
 
   &>* {
     cursor: pointer;
+  }
+
+  .application-logo {
+    margin-left: -2rem;
   }
 
   .app-title {
