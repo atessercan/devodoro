@@ -16,6 +16,7 @@
   padding: .35rem 1.5rem;
   text-decoration: none;
   text-shadow: 0 .1rem 0 #282c3462;
+  margin-top: 1rem;
 
   &:hover {
     background: linear-gradient(to bottom, #3c424e 5%, #282c34d7 100%);
@@ -29,5 +30,12 @@
 
   &:focus {
     outline: none;
+  }
+
+  &:disabled {
+    position: relative;
+    top: 1px;
+    background: #ccc;
+    color: #687286;
   }
 }

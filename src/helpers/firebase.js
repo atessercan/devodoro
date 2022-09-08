@@ -1,12 +1,12 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getAuth } from 'firebase/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
@@ -15,19 +15,44 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-
-  // apiKey: 'AIzaSyCGGPstxhC0guUevFulK0utNMHYvPe_H3M',
-  // authDomain: 'devodoro-3bdb4.firebaseapp.com',
-  // projectId: 'devodoro-3bdb4',
-  // storageBucket: 'devodoro-3bdb4.appspot.com',
-  // messagingSenderId: '809115184023',
-  // appId: '1:809115184023:web:2bf177aa41f6eede36b2d2',
-  // measurementId: 'G-BGKT1Y44Q5',
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
 
-export default { app, auth, analytics };
+export const register = async (email, password, nickName) => {
+  try {
+    const user = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(auth.currentUser, {
+      displayName: nickName,
+    });
+    return user;
+  } catch (err) {
+    console.log(err.message);
+  }
+  return true;
+};
+
+export const login = async (email, password, setIsOpen) => {
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    setIsOpen(false);
+    return user;
+  } catch (err) {
+    console.log(err.message);
+  }
+  return true;
+};
+
+export const logout = async () => {
+  try {
+    await signOut(auth);
+    return true;
+  } catch (err) {
+    console.log(err.message);
+  }
+  return true;
+};
+
+export default app;

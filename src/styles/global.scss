@@ -11,6 +11,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: $teko;
   background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .app {
     position: inherit;
@@ -41,9 +44,11 @@ body {
 
   }
 
+
   .ReactModal__Overlay {
     opacity: 0;
     transition: opacity 120ms ease-in-out;
+
   }
 
   .ReactModal__Overlay--after-open {
@@ -53,6 +58,7 @@ body {
   .ReactModal__Overlay--before-close {
     opacity: 0;
   }
+
 
   @media screen and (max-width: 1200px) {
     .recharts-cartesian-axis-ticks {
