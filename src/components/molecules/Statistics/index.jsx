@@ -14,7 +14,8 @@ import Button from '../../atoms/Button';
 
 function Statistics({ onClick }) {
   const localStorageArray = [];
-
+  const date = new Date();
+  const day = date.getDate();
   for (let i = 0; i < 7; i += 1) {
     const item = localStorage.getItem(i);
     if (item) {
@@ -107,7 +108,7 @@ function Statistics({ onClick }) {
           <Bar dataKey="time" barSize={30}>
             {localStorageArray.map((entry) => (
               <Cell
-                fill={entry.monthDay === 6 ? 'green' : '#005599'}
+                fill={entry.monthDay === day ? 'green' : '#005599'}
                 text="today"
               />
             ))}
