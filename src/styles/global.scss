@@ -18,8 +18,8 @@ body {
   .app {
     position: inherit;
     height: 100vh;
-    max-width: 1200px;
     width: 100wv;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -41,14 +41,14 @@ body {
       font-size: 4rem;
       margin-top: -60%;
     }
-
   }
-
 
   .ReactModal__Overlay {
     opacity: 0;
     transition: opacity 120ms ease-in-out;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .ReactModal__Overlay--after-open {

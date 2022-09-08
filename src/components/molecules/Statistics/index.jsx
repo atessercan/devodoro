@@ -6,13 +6,16 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
+  Cell,
 } from 'recharts';
 import Title from '../../atoms/Text/Title';
 import styles from './index.module.scss';
+import Button from '../../atoms/Button';
 
-function Statistics() {
+function Statistics({ onClick }) {
   const localStorageArray = [];
-
+  const date = new Date();
+  const day = date.getDate();
   for (let i = 0; i < 7; i += 1) {
     const item = localStorage.getItem(i);
     if (item) {
@@ -84,7 +87,6 @@ function Statistics() {
       };
     }
   }
-
   return (
     <div className={styles.statistics}>
       <Title text="Statistics" />
@@ -103,10 +105,25 @@ function Statistics() {
             }}
           />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Bar dataKey="time" fill="#8884d8" barSize={30} />
+          <Bar dataKey="time" barSize={30}>
+            {localStorageArray.map((entry) => (
+              <Cell
+                fill={entry.monthDay === day ? 'green' : '#005599'}
+                text="today"
+              />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
-      <i>*Stats reset every Sunday.</i>
+      <div className={styles.exclaimer}>
+        <div className={styles['square-today']} />
+        <span> Today</span>
+      </div>
+      <div className={styles.exclaimer}>
+        <div className={styles['square-past']} />
+        <span> Past</span>
+      </div>
+      <Button className={styles['close-button']} name="X" onClick={onClick} />
     </div>
   );
 }
