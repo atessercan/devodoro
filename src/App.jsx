@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Header from './components/organisms/Header';
 import Pomodoro from './components/organisms/Pomodoro';
 import './styles/global.scss';
 import 'animate.css';
 import AuthContext from './context/auth-context';
-import app from './helpers/firebase';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    app.auth.onAuthStateChanged(setCurrentUser);
-  }, []);
-
+  const authValues = useMemo(
+    () => ({
+      currentUser,
+      setCurrentUser,
+    }),
+    [currentUser, setCurrentUser],
+  );
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
   });
   return (
-    <AuthContext.Provider value={(currentUser, setCurrentUser)}>
+    <AuthContext.Provider value={authValues}>
       <div className="app">
         <div className={isLoading ? 'hidden' : 'visible'}>
           <Header />
