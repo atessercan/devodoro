@@ -6,6 +6,7 @@ const customStyles = {
   },
 
   content: {
+    position: 'static',
     backgroundColor: '#282c34',
     color: '#fefefe',
     overflow: 'auto',
@@ -14,6 +15,7 @@ const customStyles = {
     maxWidth: '700px',
     maxHeight: '560px',
     margin: '0 auto',
+    width: '96%',
   },
 };
 
