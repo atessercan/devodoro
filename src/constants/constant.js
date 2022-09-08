@@ -1,3 +1,5 @@
+// Custom modal styles
+
 const customStyles = {
   overlay: {
     backgroundColor: '#282c34d9',
@@ -10,7 +12,7 @@ const customStyles = {
     WebkitOverflowScrolling: 'touch',
     outline: 'none',
     maxWidth: '700px',
-    maxHeight: '620px',
+    maxHeight: '560px',
     margin: '0 auto',
   },
 };

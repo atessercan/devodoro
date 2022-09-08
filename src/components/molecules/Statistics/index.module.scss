@@ -9,4 +9,32 @@
   gap: 1rem;
   width: 100%;
   padding: .5rem;
+
+  .exclaimer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: -4rem;
+
+    .square-today {
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: green;
+      margin: 1rem;
+    }
+
+    .square-past {
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: #005599;
+      margin: 1rem;
+    }
+  }
+
+  .close-button {
+    align-self: flex-end;
+  }
+
 }

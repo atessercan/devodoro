@@ -64,7 +64,10 @@ function Menu() {
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        style={modalStyles}
+        style={{
+          ...modalStyles,
+          content: { ...modalStyles.content, maxHeight: '550px' },
+        }}
         contentLabel="modal"
       >
         {modalTitle === 'Login' && <Login setIsOpen={setIsOpen} />}

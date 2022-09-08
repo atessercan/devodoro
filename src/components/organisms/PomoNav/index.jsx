@@ -44,7 +44,17 @@ function PomoNav() {
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        style={modalStyles}
+        style={
+          modalTitle === 'Statistics'
+            ? {
+                ...modalStyles,
+                content: { ...modalStyles.content, maxHeight: '560px' },
+              }
+            : {
+                ...modalStyles,
+                content: { ...modalStyles.content, maxHeight: '440px' },
+              }
+        }
         contentLabel="modal"
       >
         {modalTitle === 'Statistics' && (
