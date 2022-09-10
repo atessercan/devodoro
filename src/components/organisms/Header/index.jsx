@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../../logo.svg';
-import { SiteTitle } from '../../atoms/Text';
+import SiteTitle from '../../atoms/Text';
 import Menu from '../../molecules/Menu';
 import styles from './index.module.scss';
 
