@@ -44,7 +44,6 @@ function Login({ setIsOpen }) {
                   user = await data.user;
                   // email = await user.email;
                   const nickName = await user.displayName;
-                  console.log(data);
                   setCurrentUser(nickName);
                 };
                 loginUser();
