@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   BarChart,
   Bar,
@@ -11,105 +11,61 @@ import {
 import Title from '../../atoms/Text/Title';
 import styles from './index.module.scss';
 import Button from '../../atoms/Button';
+import { getFirebaseDB } from '../../../helpers/firebase';
+import AuthContext from '../../../context/auth-context';
 
 function Statistics({ onClick }) {
-  const localStorageArray = [];
+  const { currentUser } = useContext(AuthContext);
+  const [data, setData] = useState([]);
   const date = new Date();
-  const day = date.getDate();
-  for (let i = 0; i < 7; i += 1) {
-    const item = localStorage.getItem(i);
-    if (item) {
-      const parsedItem = JSON.parse(item);
-      localStorageArray[i] = parsedItem;
-      switch (i) {
-        case 0:
-          localStorageArray[i].weekDay = `Sunday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        case 1:
-          localStorageArray[i].weekDay = `Monday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        case 2:
-          localStorageArray[i].weekDay = `Tuesday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        case 3:
-          localStorageArray[i].weekDay = `Wednesday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        case 4:
-          localStorageArray[i].weekDay = `Thursday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        case 5:
-          localStorageArray[i].weekDay = `Friday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-          break;
-        default:
-          localStorageArray[i].weekDay = `Monday\n${
-            localStorageArray[i].monthDay
-          }/${localStorageArray[i].month + 1}`;
-          localStorageArray[i].time = Math.floor(
-            localStorageArray[i].time / 60,
-          );
-      }
+  const today = date.getDate();
+  useEffect(() => {
+    let arr = [];
+    if (currentUser) {
+      console.log(currentUser);
+      (async () => {
+        arr = [...(await getFirebaseDB())];
+        setData(arr);
+      })();
     } else {
-      localStorageArray[i] = {
-        weekDay: undefined,
-        monthDay: undefined,
-        month: undefined,
-        time: undefined,
-      };
+      (async () => {
+        arr = [...(await JSON.parse(localStorage.getItem('stats')))];
+        console.log(arr);
+        setData(arr);
+      })();
     }
-  }
+  }, [currentUser]);
+  console.log(data);
   return (
     <div className={styles.statistics}>
       <Title text="Statistics" />
       <ResponsiveContainer width="100%" height={280}>
         <BarChart
-          data={localStorageArray}
+          data={data}
           margin={{ top: 40, right: 30, left: 0, bottom: 0 }}
         >
-          <XAxis dataKey="weekDay" stroke="#8884d8" />
+          <XAxis
+            dataKey={(v) =>
+              `${v.dayName ? v.dayName : ''} ${v.monthDay ? v.monthDay : ''} ${
+                v.dayName && v.monthDay && v.month ? '/' : ''
+              } ${v.month ? v.month + 1 : ''}`
+            }
+            stroke="#8884d8"
+          />
           <YAxis
             label={{
               value: 'minutes',
               angle: '-90',
               position: 'center',
-              fill: '#8884d8',
+              fill: '#ffffff99',
             }}
           />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Bar dataKey="time" barSize={30}>
-            {localStorageArray.map((entry) => (
+          <Bar dataKey={(v) => v.time / 60} barSize={30}>
+            {data.map((entry) => (
               <Cell
-                fill={entry.monthDay === day ? 'green' : '#005599'}
-                text="today"
+                key={Math.random()}
+                fill={entry.monthDay === today ? 'green' : '#005599'}
               />
             ))}
           </Bar>

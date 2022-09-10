@@ -4,17 +4,17 @@ import styles from './index.module.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from '../../atoms/Button';
 import SettingsContext from '../../../context/settings-context';
-import useLocalStorage from '../../../hooks/useLocalStorage';
 import playSound from '../../../helpers/playSound';
+import AuthContext from '../../../context/auth-context';
+import saveData from '../../../helpers/saveData';
 
 function Timer() {
   const date = new Date();
   const dayOfWeek = date.getDay();
   const dayOfMonth = date.getDate();
-  const month = date.getMonth();
-  const dateObj = { dayOfWeek, dayOfMonth };
-  const [, setStatsLS] = useLocalStorage(dateObj, {});
+
   const settings = useContext(SettingsContext);
+  const { currentUser } = useContext(AuthContext);
   const [isPaused, setIsPaused] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [sessionMode, setSessionMode] = useState('break');
@@ -22,7 +22,8 @@ function Timer() {
   const secondsRef = useRef(seconds);
   const isPausedRef = useRef(isPaused);
   const sessionModeRef = useRef(sessionMode);
-
+  const userRef = useRef(currentUser);
+  userRef.current = currentUser;
   const tick = () => {
     secondsRef.current -= 1;
     setSeconds(secondsRef.current);
@@ -59,32 +60,11 @@ function Timer() {
         isPausedRef.current = true;
         return;
       }
-      if (secondsRef.current === 1) {
+      if (sessionModeRef.current === 'work' && secondsRef.current === 1) {
         playSound();
-        if (sessionModeRef.current === 'work') {
-          const syncLS = async () => {
-            let prevStat = 0;
-            const item = await localStorage.getItem(dayOfWeek);
-            if (item) {
-              const stat = await JSON.parse(item);
-              if (stat.monthDay !== dayOfMonth) {
-                await localStorage.removeItem(dayOfWeek);
-                prevStat = 0;
-              } else {
-                prevStat = await stat.time;
-              }
-            }
-            const newTime = prevStat + settings.sessionDuration * 60;
-            const currentStat = {
-              weekDay: dayOfWeek,
-              monthDay: dayOfMonth,
-              month,
-              time: newTime,
-            };
-            await setStatsLS(currentStat);
-          };
-          syncLS();
-        }
+        // save data
+        saveData(userRef.current, settings.sessionDuration);
+        // save data
       }
       tick();
     }, 10);
