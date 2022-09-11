@@ -26,9 +26,10 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export const register = async (email, password, nickName) => {
+  let data = {};
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password);
-    const data = new Array(7).fill({
+    const stats = new Array(7).fill({
       monthDay: null,
       month: null,
       time: null,
@@ -37,49 +38,38 @@ export const register = async (email, password, nickName) => {
     await updateProfile(auth.currentUser, {
       displayName: nickName,
     });
-    await setDoc(doc(db, 'users', auth.currentUser.uid), { data });
-    return user;
-  } catch (err) {
-    console.log(err.message);
+    await setDoc(doc(db, 'users', auth.currentUser.uid), { stats });
+    data = user;
+  } catch (error) {
+    data = { ...error };
   }
-  return true;
+  return data;
 };
 
-export const login = async (email, password, setIsOpen) => {
+export const login = async (email, password) => {
+  let data = {};
   try {
     await setPersistence(auth, browserLocalPersistence);
-    const user = await signInWithEmailAndPassword(auth, email, password);
-    setIsOpen(false);
-    return user;
+    data = await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log(err.message);
+    data = { ...err };
   }
-  return true;
+  return data;
 };
 
 export const logout = async () => {
-  try {
-    await signOut(auth);
-    return true;
-  } catch (err) {
-    console.log(err.message);
-  }
-  return true;
+  await signOut(auth);
 };
 
-export const addFirebaseDB = async (data) => {
-  try {
-    await setDoc(doc(db, 'users', auth.currentUser.uid), { data });
-  } catch (e) {
-    console.error('Error adding document: ', e);
-  }
+export const addFirebaseDB = async (stats) => {
+  await setDoc(doc(db, 'users', auth.currentUser.uid), { stats });
 };
 
 export const getFirebaseDB = async () => {
   const docRef = doc(db, 'users', auth.currentUser.uid);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
-  const arr = await data.data;
+  const arr = await data.stats;
   return arr;
 };
 

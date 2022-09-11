@@ -11,10 +11,14 @@ import styles from './index.module.scss';
 import Register from '../Register';
 import { login } from '../../../helpers/firebase';
 import AuthContext from '../../../context/auth-context';
+import ThemeContext from '../../../context/theme-context';
 
 function Login({ setIsOpen }) {
   const { setCurrentUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const [formType, setFormType] = useState('login');
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
   return (
     <>
       <Title text={formType} />
@@ -31,20 +35,29 @@ function Login({ setIsOpen }) {
               })}
               onSubmit={(values, { setSubmitting }) => {
                 let user;
-                // let email;
                 setTimeout(() => {
                   setSubmitting(false);
                 }, 400);
                 const loginUser = async () => {
-                  const data = await login(
-                    values.email,
-                    values.password,
-                    setIsOpen,
-                  );
-                  user = await data.user;
-                  // email = await user.email;
-                  const nickName = await user.displayName;
-                  setCurrentUser(nickName);
+                  const data = await login(values.email, values.password);
+                  if (Object.prototype.hasOwnProperty.call(data, 'user')) {
+                    user = await data.user;
+                    const nickName = await user.displayName;
+                    setCurrentUser(nickName);
+                    setError(null);
+                    setMessage('You are logged in. Redirecting...');
+                    setTimeout(() => {
+                      setIsOpen(false);
+                    }, 2000);
+                  }
+                  if (Object.prototype.hasOwnProperty.call(data, 'code')) {
+                    if (
+                      data.code === 'auth/wrong-password' ||
+                      data.code === 'auth/user-not-found'
+                    ) {
+                      setError('Invalid password or e-mail.');
+                    }
+                  }
                 };
                 loginUser();
               }}
@@ -53,7 +66,11 @@ function Login({ setIsOpen }) {
                 <Form className={styles.form}>
                   <label htmlFor="email">E-mail</label>
                   <Field
-                    className={styles['form-input']}
+                    className={
+                      theme === 'night'
+                        ? styles['form-input-dark']
+                        : styles['form-input-light']
+                    }
                     type="email"
                     name="email"
                     placeholder="example@example.com"
@@ -66,7 +83,11 @@ function Login({ setIsOpen }) {
 
                   <label htmlFor="Password">Password</label>
                   <Field
-                    className={styles['form-input']}
+                    className={
+                      theme === 'night'
+                        ? styles['form-input-dark']
+                        : styles['form-input-light']
+                    }
                     type="password"
                     name="password"
                     placeholder="******"
@@ -94,7 +115,7 @@ function Login({ setIsOpen }) {
         )}
         {formType === 'register' && (
           <>
-            <Register />
+            <Register setFormType={setFormType} />
             <div
               className={styles['back-to-login-button']}
               onClick={() => setFormType('login')}
@@ -104,6 +125,8 @@ function Login({ setIsOpen }) {
             </div>
           </>
         )}
+        {message && <div className={styles['success-message']}>{message}</div>}
+        {error && <div className={styles['error-message']}>{error}</div>}
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import SettingsContext from '../../../context/settings-context';
 import playSound from '../../../helpers/playSound';
 import AuthContext from '../../../context/auth-context';
 import saveData from '../../../helpers/saveData';
+import ThemeContext from '../../../context/theme-context';
 
 function Timer() {
   const date = new Date();
@@ -14,6 +15,7 @@ function Timer() {
   const dayOfMonth = date.getDate();
 
   const settings = useContext(SettingsContext);
+  const { theme } = useContext(ThemeContext);
   const { currentUser } = useContext(AuthContext);
   const [isPaused, setIsPaused] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -67,7 +69,7 @@ function Timer() {
         // save data
       }
       tick();
-    }, 10);
+    }, 1000);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,11 +95,15 @@ function Timer() {
         styles={buildStyles({
           pathColor: sessionMode === 'work' ? '#60b8c5' : 'green',
           strokeLinecap: 'butt',
-          textColor: '#fff',
+          textColor: theme === 'night' ? '#ffffff' : '#282c34',
           trailColor: 'transparent',
         })}
       />
-      <hr style={{ width: '80%' }} />
+      <hr
+        className={
+          theme === 'night' ? styles['line-dark'] : styles['line-light']
+        }
+      />
       <div className={styles['button-group']}>
         {isPaused ? (
           <Button

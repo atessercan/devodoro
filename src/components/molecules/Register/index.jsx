@@ -1,13 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import styles from './index.module.scss';
 import Button from '../../atoms/Button';
 
 import { register } from '../../../helpers/firebase';
+import ThemeContext from '../../../context/theme-context';
 
-function Register() {
+function Register({ setFormType }) {
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={styles['register-form']}>
       <Formik
@@ -35,11 +39,26 @@ function Register() {
           setTimeout(() => {
             actions.setSubmitting(false);
           }, 400);
-          // firebase auth with values
-          // ...
           const registerNewUser = async () => {
-            // await register(values.email, values.password);
-            await register(values.email, values.password, values.nickName);
+            const data = await register(
+              values.email,
+              values.password,
+              values.nickName,
+            );
+            if (Object.prototype.hasOwnProperty.call(data, 'user')) {
+              setMessage('Successfull. Redirecting to login.');
+              setError(null);
+              setTimeout(() => {
+                setFormType('login');
+              }, 2000);
+            }
+            if (Object.prototype.hasOwnProperty.call(data, 'code')) {
+              if (data.code === 'auth/email-already-in-use') {
+                setError('E-mail already in use.');
+              } else {
+                setError(`An error occured:${data.code}`);
+              }
+            }
           };
           registerNewUser();
         }}
@@ -48,7 +67,11 @@ function Register() {
           <Form className={styles.form}>
             <label htmlFor="nickName">Nickname</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="text"
               name="nickName"
               placeholder="John"
@@ -60,7 +83,11 @@ function Register() {
             />
             <label htmlFor="email">E-mail</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="email"
               name="email"
               placeholder="example@example.com"
@@ -72,7 +99,11 @@ function Register() {
             />
             <label htmlFor="password">Password</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="password"
               name="password"
               placeholder="******"
@@ -84,7 +115,11 @@ function Register() {
             />
             <label htmlFor="retypePassword">Confirm password</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="password"
               name="retypePassword"
               placeholder="******"
@@ -102,6 +137,8 @@ function Register() {
           </Form>
         )}
       </Formik>
+      {message && <div className={styles['success-message']}>{message}</div>}
+      {error && <div className={styles['error-message']}>{error}</div>}
     </div>
   );
 }

@@ -10,22 +10,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: $teko;
-  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .app {
+  .app-dark,
+  .app-light {
     position: inherit;
-    height: 100vh;
-    width: 100wv;
+    height: 100%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: $background-color;
+    padding-left: 2rem;
 
     .hidden {
       visibility: hidden;
@@ -41,6 +41,22 @@ body {
       font-size: 4rem;
       margin-top: -60%;
     }
+
+  }
+
+  .app-dark {
+    background-color: $background-color-dark;
+  }
+
+  .app-white {
+    background-color: $background-color-light;
+  }
+
+  // Fix for React Modal's tabbing problem on forms
+  .ReactModalPortal {
+    position: absolute;
+    height: 1px;
+    width: 1px;
   }
 
   .ReactModal__Overlay {

@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import styles from './index.module.scss';
 import SettingsContext from '../../../context/settings-context';
 import breakDurations from '../../../constants/constant';
+import ThemeContext from '../../../context/theme-context';
 
 function SelectBreak() {
   const { breakDuration, setBreakDuration } = useContext(SettingsContext);
+  const { theme } = useContext(ThemeContext);
   const changeHandler = (e) => {
     const duration = +e.target.value;
     setBreakDuration(duration);
@@ -13,10 +15,12 @@ function SelectBreak() {
     <label htmlFor="pomodoro">
       <span className={styles['option-title']}>Break : </span>
       <select
-        className={styles.select}
+        className={
+          theme === 'night' ? styles['select-dark'] : styles['select-light']
+        }
         name="duration"
         onChange={changeHandler}
-        defaultValue={breakDuration}
+        value={breakDuration}
       >
         {breakDurations.breakDurations.map((item) => (
           <option key={Math.random()} value={item}>
