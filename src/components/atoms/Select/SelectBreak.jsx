@@ -16,7 +16,7 @@ function SelectBreak() {
         className={styles.select}
         name="duration"
         onChange={changeHandler}
-        defaultValue={breakDuration}
+        value={breakDuration}
       >
         {breakDurations.breakDurations.map((item) => (
           <option key={Math.random()} value={item}>

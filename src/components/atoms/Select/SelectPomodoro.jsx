@@ -16,7 +16,7 @@ function SelectPomodoro() {
         className={styles.select}
         name="duration"
         onChange={changeHandler}
-        defaultValue={sessionDuration}
+        value={sessionDuration}
       >
         {sessionDurations.sessionDurations.map((item) => (
           <option key={Math.random()} value={item}>
