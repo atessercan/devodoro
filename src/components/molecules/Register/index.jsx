@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import styles from './index.module.scss';
@@ -7,7 +7,9 @@ import Button from '../../atoms/Button';
 
 import { register } from '../../../helpers/firebase';
 
-function Register() {
+function Register({ setFormType }) {
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
   return (
     <div className={styles['register-form']}>
       <Formik
@@ -35,11 +37,26 @@ function Register() {
           setTimeout(() => {
             actions.setSubmitting(false);
           }, 400);
-          // firebase auth with values
-          // ...
           const registerNewUser = async () => {
-            // await register(values.email, values.password);
-            await register(values.email, values.password, values.nickName);
+            const data = await register(
+              values.email,
+              values.password,
+              values.nickName,
+            );
+            if (Object.prototype.hasOwnProperty.call(data, 'user')) {
+              setMessage('Successfull. Redirecting to login.');
+              setError(null);
+              setTimeout(() => {
+                setFormType('login');
+              }, 2000);
+            }
+            if (Object.prototype.hasOwnProperty.call(data, 'code')) {
+              if (data.code === 'auth/email-already-in-use') {
+                setError('E-mail already in use.');
+              } else {
+                setError(`An error occured:${data.code}`);
+              }
+            }
           };
           registerNewUser();
         }}
@@ -102,6 +119,8 @@ function Register() {
           </Form>
         )}
       </Formik>
+      {message && <div className={styles['success-message']}>{message}</div>}
+      {error && <div className={styles['error-message']}>{error}</div>}
     </div>
   );
 }

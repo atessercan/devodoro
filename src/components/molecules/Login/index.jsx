@@ -15,6 +15,8 @@ import AuthContext from '../../../context/auth-context';
 function Login({ setIsOpen }) {
   const { setCurrentUser } = useContext(AuthContext);
   const [formType, setFormType] = useState('login');
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
   return (
     <>
       <Title text={formType} />
@@ -31,20 +33,29 @@ function Login({ setIsOpen }) {
               })}
               onSubmit={(values, { setSubmitting }) => {
                 let user;
-                // let email;
                 setTimeout(() => {
                   setSubmitting(false);
                 }, 400);
                 const loginUser = async () => {
-                  const data = await login(
-                    values.email,
-                    values.password,
-                    setIsOpen,
-                  );
-                  user = await data.user;
-                  // email = await user.email;
-                  const nickName = await user.displayName;
-                  setCurrentUser(nickName);
+                  const data = await login(values.email, values.password);
+                  if (Object.prototype.hasOwnProperty.call(data, 'user')) {
+                    user = await data.user;
+                    const nickName = await user.displayName;
+                    setCurrentUser(nickName);
+                    setError(null);
+                    setMessage('You are logged in. Redirecting...');
+                    setTimeout(() => {
+                      setIsOpen(false);
+                    }, 2000);
+                  }
+                  if (Object.prototype.hasOwnProperty.call(data, 'code')) {
+                    if (
+                      data.code === 'auth/wrong-password' ||
+                      data.code === 'auth/user-not-found'
+                    ) {
+                      setError('Invalid password or e-mail.');
+                    }
+                  }
                 };
                 loginUser();
               }}
@@ -94,7 +105,7 @@ function Login({ setIsOpen }) {
         )}
         {formType === 'register' && (
           <>
-            <Register />
+            <Register setFormType={setFormType} />
             <div
               className={styles['back-to-login-button']}
               onClick={() => setFormType('login')}
@@ -104,6 +115,8 @@ function Login({ setIsOpen }) {
             </div>
           </>
         )}
+        {message && <div className={styles['success-message']}>{message}</div>}
+        {error && <div className={styles['error-message']}>{error}</div>}
       </div>
     </>
   );

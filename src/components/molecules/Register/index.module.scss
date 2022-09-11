@@ -63,5 +63,16 @@
       align-self: center;
       margin-top: 1.5rem;
     }
+
+  }
+
+  .error-message {
+    color: red;
+    height: 3%;
+  }
+
+  .success-message {
+    color: rgb(5, 202, 5);
+    height: 3%;
   }
 }
