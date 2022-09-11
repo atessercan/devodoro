@@ -43,6 +43,13 @@ body {
     }
   }
 
+  // Fix for React Modal's tabbing problem on forms
+  .ReactModalPortal {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+  }
+
   .ReactModal__Overlay {
     opacity: 0;
     transition: opacity 120ms ease-in-out;
