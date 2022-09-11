@@ -32,15 +32,11 @@ function Menu() {
     setIsOpen(false);
   };
 
-  const toggleHandler = () => {
-    setToggleLogout((prevState) => !prevState);
-  };
-
   const logoutHandler = async () => {
+    setToggleLogout(false);
     const logState = await logout();
     if (logState) {
       setCurrentUser(null);
-      toggleHandler();
     }
   };
   useEffect(() => {
@@ -57,7 +53,9 @@ function Menu() {
         </div>
       ) : (
         // username and logout functions comes here
-        <div onClick={toggleHandler}>{currentUser}</div>
+        <div onClick={() => setToggleLogout((prevState) => !prevState)}>
+          {currentUser}
+        </div>
       )}
       <ReactModal
         closeTimeoutMS={120}
