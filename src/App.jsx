@@ -1,8 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-param-reassign */
 import React, { useEffect, useState, useMemo } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Helmet } from 'react-helmet';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Header from './components/organisms/Header';
 import Pomodoro from './components/organisms/Pomodoro';
 import './styles/global.scss';
