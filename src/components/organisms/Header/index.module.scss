@@ -8,25 +8,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: calc(10px + 1vmin);
+  font-size: 1rem;
   height: 5rem;
-  padding: 0 2rem;
 
   &>* {
     cursor: pointer;
   }
 
-  .application-logo {
-    margin-left: -2rem;
-  }
+  .application-logo {}
 
-  .app-title {
-    font-family: $skygraze;
-  }
-
-  .menu-button {
-    width: 100px;
-  }
 }
 
 .app-header-light {

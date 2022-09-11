@@ -15,12 +15,9 @@ function Header() {
           : styles['app-header-light']
       }
     >
-      <img
-        src={logo}
-        className={styles['application-logo']}
-        alt="app logo"
-        width="100px"
-      />
+      <div className={styles['application-logo']}>
+        <img src={logo} alt="app logo" width="100px" />
+      </div>
       <SiteTitle />
       <Menu />
     </header>
