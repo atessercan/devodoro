@@ -8,16 +8,16 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
+  font-size: calc(10px + 1vmin);
   height: 5rem;
-  // padding: 0 2rem;
+  padding: 0 2rem;
 
   &>* {
     cursor: pointer;
   }
 
   .application-logo {
-    margin-left: -.5rem;
+    margin-left: -2rem;
   }
 
   .app-title {

@@ -65,7 +65,7 @@ function App() {
     <ThemeContext.Provider value={themeValues}>
       <AuthContext.Provider value={authValues}>
         <div className={theme === 'night' ? 'app-dark' : 'app-light'}>
-          <div className={isLoading ? ' hidden' : 'main visible'}>
+          <div className={isLoading ? 'hidden' : 'visible'}>
             <Header />
             <Pomodoro />
           </div>
