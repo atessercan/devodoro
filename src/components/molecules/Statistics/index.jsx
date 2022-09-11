@@ -22,7 +22,6 @@ function Statistics({ onClick }) {
   useEffect(() => {
     let arr = [];
     if (currentUser) {
-      console.log(currentUser);
       (async () => {
         arr = [...(await getFirebaseDB())];
         setData(arr);
@@ -30,12 +29,10 @@ function Statistics({ onClick }) {
     } else {
       (async () => {
         arr = [...(await JSON.parse(localStorage.getItem('stats')))];
-        console.log(arr);
         setData(arr);
       })();
     }
   }, [currentUser]);
-  console.log(data);
   return (
     <div className={styles.statistics}>
       <Title text="Statistics" />

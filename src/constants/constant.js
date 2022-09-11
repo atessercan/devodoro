@@ -19,4 +19,7 @@ const customStyles = {
   },
 };
 
-export default { customStyles };
+const breakDurations = [5, 6, 7, 8, 9, 10, 11, 12];
+const sessionDurations = [20, 25, 30, 35, 40, 45, 50, 55, 60];
+
+export default { customStyles, breakDurations, sessionDurations };

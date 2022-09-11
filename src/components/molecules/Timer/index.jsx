@@ -72,7 +72,6 @@ function Timer() {
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings, dayOfMonth, dayOfWeek]);
-
   const totalSeconds =
     sessionMode === 'work'
       ? settings.sessionDuration * 60

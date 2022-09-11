@@ -3,10 +3,10 @@ import styles from './index.module.scss';
 import SettingsContext from '../../../context/settings-context';
 
 function SelectTheme() {
-  const { setTheme } = useContext(SettingsContext);
+  const { theme, setTheme } = useContext(SettingsContext);
   const changeHandler = (e) => {
-    const theme = e.target.value;
-    setTheme(theme);
+    const selectedTheme = e.target.value;
+    setTheme(selectedTheme);
   };
   return (
     <label htmlFor="pomodoro">
@@ -15,6 +15,7 @@ function SelectTheme() {
         className={styles.select}
         name="duration"
         onChange={changeHandler}
+        defaultValue={theme}
       >
         <option value="night">Night</option>
         <option value="day">Day</option>
