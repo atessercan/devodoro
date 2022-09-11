@@ -80,7 +80,6 @@ export const getFirebaseDB = async () => {
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   const arr = await data.data;
-  console.log(arr);
   return arr;
 };
 
