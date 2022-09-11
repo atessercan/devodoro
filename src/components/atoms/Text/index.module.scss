@@ -7,3 +7,12 @@
 .title {
   font-family: $teko;
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+
+  &:visited {
+    color: inherit;
+  }
+}
