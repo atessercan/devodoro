@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useEffect, useState, useMemo } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { Helmet } from 'react-helmet';
 import Header from './components/organisms/Header';
 import Pomodoro from './components/organisms/Pomodoro';
 import './styles/global.scss';
@@ -73,6 +74,11 @@ function App() {
             <div className="animate__animated animate__backOutUp">DEVODORO</div>
           </div>
         </div>
+        <Helmet>
+          <style>{`body { background-color: ${
+            theme === 'night' ? '#282c34' : '#fefefe'
+          }; }`}</style>
+        </Helmet>
       </AuthContext.Provider>
     </ThemeContext.Provider>
   );

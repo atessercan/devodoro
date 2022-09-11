@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import styles from './index.module.scss';
 import Button from '../../atoms/Button';
 
 import { register } from '../../../helpers/firebase';
+import ThemeContext from '../../../context/theme-context';
 
 function Register({ setFormType }) {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={styles['register-form']}>
       <Formik
@@ -65,7 +67,11 @@ function Register({ setFormType }) {
           <Form className={styles.form}>
             <label htmlFor="nickName">Nickname</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="text"
               name="nickName"
               placeholder="John"
@@ -77,7 +83,11 @@ function Register({ setFormType }) {
             />
             <label htmlFor="email">E-mail</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="email"
               name="email"
               placeholder="example@example.com"
@@ -89,7 +99,11 @@ function Register({ setFormType }) {
             />
             <label htmlFor="password">Password</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="password"
               name="password"
               placeholder="******"
@@ -101,7 +115,11 @@ function Register({ setFormType }) {
             />
             <label htmlFor="retypePassword">Confirm password</label>
             <Field
-              className={styles['form-input']}
+              className={
+                theme === 'night'
+                  ? styles['form-input-dark']
+                  : styles['form-input-light']
+              }
               type="password"
               name="retypePassword"
               placeholder="******"

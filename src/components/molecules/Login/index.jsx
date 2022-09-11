@@ -11,9 +11,11 @@ import styles from './index.module.scss';
 import Register from '../Register';
 import { login } from '../../../helpers/firebase';
 import AuthContext from '../../../context/auth-context';
+import ThemeContext from '../../../context/theme-context';
 
 function Login({ setIsOpen }) {
   const { setCurrentUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const [formType, setFormType] = useState('login');
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -64,7 +66,11 @@ function Login({ setIsOpen }) {
                 <Form className={styles.form}>
                   <label htmlFor="email">E-mail</label>
                   <Field
-                    className={styles['form-input']}
+                    className={
+                      theme === 'night'
+                        ? styles['form-input-dark']
+                        : styles['form-input-light']
+                    }
                     type="email"
                     name="email"
                     placeholder="example@example.com"
@@ -77,7 +83,11 @@ function Login({ setIsOpen }) {
 
                   <label htmlFor="Password">Password</label>
                   <Field
-                    className={styles['form-input']}
+                    className={
+                      theme === 'night'
+                        ? styles['form-input-dark']
+                        : styles['form-input-light']
+                    }
                     type="password"
                     name="password"
                     placeholder="******"

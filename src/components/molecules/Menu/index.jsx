@@ -9,15 +9,19 @@ import Login from '../Login';
 import customStyles from '../../../constants/constant';
 import AuthContext from '../../../context/auth-context';
 import { logout } from '../../../helpers/firebase';
-
-const modalStyles = { ...customStyles.customStyles };
+import ThemeContext from '../../../context/theme-context';
 
 function Menu() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('Login');
   const [toggleLogout, setToggleLogout] = useState(false);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const userRef = useRef();
+  const modalStyles =
+    theme === 'night'
+      ? { ...customStyles.customStylesDark }
+      : { ...customStyles.customStylesLight };
   function openModal() {
     setIsOpen(true);
     setModalTitle('Login');
