@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import styles from './index.module.scss';
-import SettingsContext from '../../../context/settings-context';
+import ThemeContext from '../../../context/theme-context';
 
 function SelectTheme() {
-  const { theme, setTheme } = useContext(SettingsContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const changeHandler = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
@@ -12,7 +12,9 @@ function SelectTheme() {
     <label htmlFor="pomodoro">
       <span className={styles['option-title']}>Theme : </span>
       <select
-        className={styles.select}
+        className={
+          theme === 'night' ? styles['select-dark'] : styles['select-light']
+        }
         name="duration"
         onChange={changeHandler}
         defaultValue={theme}

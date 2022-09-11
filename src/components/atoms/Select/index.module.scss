@@ -1,35 +1,50 @@
 @import '../../../styles/variables';
 
-.select {
-  box-shadow: inset 0 1px 0 0 #282c34;
-  background: linear-gradient(to bottom, #282c34 5%, #282c34d7 100%);
-  background-color: #282c34;
+.select-dark,
+.select-light {
+
   border-radius: .4rem;
   border: 2px solid #b3b3b4;
   display: inline-block;
   cursor: pointer;
-  color: #b3b3b4;
   font-family: $skygraze;
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: .2rem;
   padding: .35rem .5rem;
   text-decoration: none;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.select-dark {
+  box-shadow: inset 0 1px 0 0 #282c34;
+  background: linear-gradient(to bottom, #282c34 5%, #282c34d7 100%);
+  background-color: #282c34;
+  color: #b3b3b4;
   text-shadow: 0 .1rem 0 #282c3462;
 
   &:hover {
     background: linear-gradient(to bottom, #3c424e 5%, #282c34d7 100%);
     background-color: #687286;
   }
+}
 
-  &:active {
-    position: relative;
-    top: 1px;
+.select-light {
+  box-shadow: inset 0 1px 0 0 $background-color-light;
+  background-color: $background-color-light;
+  color: $text-color-dark;
+  text-shadow: 0 .1rem 0 #282c3410;
 
-  }
-
-  &:focus {
-    outline: none;
+  &:hover {
+    background: linear-gradient(to bottom, #282c3434 5%, $background-color-light 100%);
   }
 
 }

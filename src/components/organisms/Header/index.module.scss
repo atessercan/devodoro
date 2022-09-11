@@ -1,6 +1,7 @@
 @import '../../../styles/variables';
 
-.app-header {
+.app-header-dark,
+.app-header-light {
   max-width: 1200px;
   width: 100vw;
   display: flex;
@@ -8,7 +9,6 @@
   justify-content: space-between;
   align-items: center;
   font-size: calc(10px + 1vmin);
-  color: white;
   height: 5rem;
   padding: 0 2rem;
 
@@ -27,4 +27,12 @@
   .menu-button {
     width: 100px;
   }
+}
+
+.app-header-light {
+  color: $text-color-dark;
+}
+
+.app-header-dark {
+  color: $text-color-light;
 }

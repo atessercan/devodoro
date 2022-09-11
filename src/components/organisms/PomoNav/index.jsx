@@ -1,21 +1,26 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { AiOutlineLineChart, AiOutlineSetting } from 'react-icons/ai';
 import ReactModal from 'react-modal';
 import styles from './index.module.scss';
 import Settings from '../../molecules/Settings';
 import Statistics from '../../molecules/Statistics';
 import customStyles from '../../../constants/constant';
-
-const modalStyles = { ...customStyles.customStyles };
+import ThemeContext from '../../../context/theme-context';
 
 ReactModal.setAppElement('#root');
 
 function PomoNav() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
+  const { theme } = useContext(ThemeContext);
+
+  const modalStyles =
+    theme === 'night'
+      ? { ...customStyles.customStylesDark }
+      : { ...customStyles.customStylesLight };
   function openModal(event) {
     setIsOpen(true);
     setModalTitle(event.target.ariaLabel);

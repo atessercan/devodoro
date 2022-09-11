@@ -18,4 +18,17 @@
     align-items: center;
     gap: 2rem;
   }
+
+  .line-dark,
+  .line-light {
+    width: 80%;
+  }
+
+  .line-light {
+    border: 1px solid $text-color-dark;
+  }
+
+  .line-light {
+    border: 1px solid $text-color-light;
+  }
 }

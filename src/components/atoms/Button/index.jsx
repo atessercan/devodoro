@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './index.module.scss';
+import ThemeContext from '../../../context/theme-context';
 
 function Button({ name, onClick, disabled, className }) {
+  const { theme } = useContext(ThemeContext);
   return (
     <button
-      className={`${styles.button} ${className}`}
+      className={
+        theme === 'night'
+          ? `${styles['button-dark']} ${className}`
+          : `${styles['button-light']} ${className}`
+      }
       type="submit"
       onClick={onClick}
       disabled={disabled}

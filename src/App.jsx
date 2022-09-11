@@ -7,18 +7,29 @@ import Pomodoro from './components/organisms/Pomodoro';
 import './styles/global.scss';
 import 'animate.css';
 import AuthContext from './context/auth-context';
+import ThemeContext from './context/theme-context';
 import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
   const [, setLocalS] = useLocalStorage('stats', []);
+  const [theme, setTheme] = useState('night');
+
   const authValues = useMemo(
     () => ({
       currentUser,
       setCurrentUser,
     }),
     [currentUser, setCurrentUser],
+  );
+
+  const themeValues = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme, setTheme],
   );
 
   useEffect(() => {
@@ -46,23 +57,24 @@ function App() {
           dayName: null,
         })),
       ];
-      console.log(lsArray);
       setLocalS(lsArray);
     }
-  }, []);
+  }, [setLocalS]);
 
   return (
-    <AuthContext.Provider value={authValues}>
-      <div className="app">
-        <div className={isLoading ? 'hidden' : 'visible'}>
-          <Header />
-          <Pomodoro />
+    <ThemeContext.Provider value={themeValues}>
+      <AuthContext.Provider value={authValues}>
+        <div className={theme === 'night' ? 'app-dark' : 'app-light'}>
+          <div className={isLoading ? 'hidden' : 'visible'}>
+            <Header />
+            <Pomodoro />
+          </div>
+          <div className={isLoading ? 'visible' : 'hidden'}>
+            <div className="animate__animated animate__backOutUp">DEVODORO</div>
+          </div>
         </div>
-        <div className={isLoading ? 'visible' : 'hidden'}>
-          <div className="animate__animated animate__backOutUp">DEVODORO</div>
-        </div>
-      </div>
-    </AuthContext.Provider>
+      </AuthContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 

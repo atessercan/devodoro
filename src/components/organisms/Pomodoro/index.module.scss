@@ -1,12 +1,20 @@
 @import '../../../styles/variables';
 
-.pomodoro-section {
+.pomodoro-section-dark,
+.pomodoro-section-light {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
   margin-top: 3rem;
-  color: #fff;
   letter-spacing: .2rem;
+}
+
+.pomodoro-section-dark {
+  color: $text-color-light;
+}
+
+.pomodoro-section-light {
+  color: $text-color-dark;
 }
