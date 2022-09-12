@@ -22,7 +22,7 @@ A pomodoro app built with React.
 npm install
 npm start
 ```
-### build
+### Build
 ```bash
 npm run build
 ```
