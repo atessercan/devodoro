@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { clearInterval, setInterval } from 'worker-timers';
 import styles from './index.module.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import Button from '../../atoms/Button';
