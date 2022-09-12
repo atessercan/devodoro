@@ -2,12 +2,11 @@
 
 A pomodoro app built with React.
 ---
+
+![Screenshot from 2022-09-12 13-19-19](https://user-images.githubusercontent.com/104576153/189630372-61707350-f4d6-4ac9-9abb-18374f47e7e2.png)
 - [Live Demo](https://devodoro-ten.vercel.app/)
----
-![Screenshot from 2022-09-11 18-43-22](https://user-images.githubusercontent.com/104576153/189536690-dc725920-fea9-4563-a3e9-54f48c5397f9.png)
 
 ## Features
-- Responsive design.
 - Audio notification at the end of the work and break sessions.
 - Firebase integration for authentication.
 - Firestore integration to store statistics on backend.
@@ -25,3 +24,4 @@ npm start
 ```bash
 npm run build
 ```
+
