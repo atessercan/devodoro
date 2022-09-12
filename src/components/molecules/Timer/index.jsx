@@ -49,6 +49,7 @@ function Timer() {
     secondsRef.current = 0;
     setSessionMode('break');
     sessionModeRef.current = 'break';
+    playSound('muted');
     const start = () => {
       setSeconds(settings.sessionDuration * 60);
     };
@@ -69,6 +70,9 @@ function Timer() {
         saveData(userRef.current, settings.sessionDuration);
         // save data
       }
+      if (sessionModeRef.current === 'break' && secondsRef.current === 1) {
+        playSound();
+      }
       tick();
     }, 1000);
 
@@ -85,7 +89,7 @@ function Timer() {
   let sec = seconds % 60;
 
   if (sec < 10) sec = `0${sec}`;
-
+  document.title = `${min}:${sec}`;
   return (
     <div className={styles['timer-group']}>
       <CircularProgressbar
