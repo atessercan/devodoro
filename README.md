@@ -3,7 +3,9 @@
 A pomodoro app built with React.
 ---
 
-![Screenshot from 2022-09-12 13-19-19](https://user-images.githubusercontent.com/104576153/189630372-61707350-f4d6-4ac9-9abb-18374f47e7e2.png)
+![Screenshot from 2022-09-12 13-21-24](https://user-images.githubusercontent.com/104576153/189630836-16d28364-e4f8-4701-aa00-a4d3987814a8.png)
+
+
 - [Live Demo](https://devodoro-ten.vercel.app/)
 
 ## Features
