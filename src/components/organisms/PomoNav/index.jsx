@@ -23,7 +23,7 @@ function PomoNav() {
       : { ...customStyles.customStylesLight };
   function openModal(event) {
     setIsOpen(true);
-    setModalTitle(event.target.ariaLabel);
+    setModalTitle(event.target.innerText);
   }
 
   function afterOpenModal() {
@@ -35,14 +35,14 @@ function PomoNav() {
     setIsOpen(false);
   }
   return (
-    <div className={styles['pomo-nav']}>
+    <div className={styles["pomo-nav"]}>
       <span className={styles.item} aria-label="Statistics" onClick={openModal}>
         <AiOutlineLineChart aria-label="Statistics" />
-        <h3 aria-label="Statistics">Statistics</h3>
+        <h3>Statistics</h3>
       </span>
       <span className={styles.item} aria-label="Settings" onClick={openModal}>
         <AiOutlineSetting aria-label="Settings" />
-        <h3 aria-label="Settings">Settings</h3>
+        <h3>Settings</h3>
       </span>
       <ReactModal
         closeTimeoutMS={120}
@@ -50,22 +50,22 @@ function PomoNav() {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={
-          modalTitle === 'Statistics'
+          modalTitle === "Statistics"
             ? {
                 ...modalStyles,
-                content: { ...modalStyles.content, maxHeight: '560px' },
+                content: { ...modalStyles.content, maxHeight: "560px" },
               }
             : {
                 ...modalStyles,
-                content: { ...modalStyles.content, maxHeight: '440px' },
+                content: { ...modalStyles.content, maxHeight: "440px" },
               }
         }
         contentLabel="modal"
       >
-        {modalTitle === 'Statistics' && (
+        {modalTitle === "Statistics" && (
           <Statistics onClick={closeModal} modalTitle={modalTitle} />
         )}
-        {modalTitle === 'Settings' && (
+        {modalTitle === "Settings" && (
           <Settings onClick={closeModal} modalTitle={modalTitle} />
         )}
       </ReactModal>
